@@ -4,18 +4,18 @@ const cors = require("cors");
 
 const { join } = require("path");
 const { PORT } = require("./config.js");
-const { Server : SocketServer } = require("socket.io");
+const { Server: SocketServer } = require("socket.io");
 
 // Rutas:
-const testRoutes = require("./routes/test.routes.js")
-const pedidoRoutes = require("./routes/pedito.routes.js")
+const testRoutes = require("./routes/test.routes.js");
+const pedidoRoutes = require("./routes/pedito.routes.js");
 
 // Servidores:
 const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server, {
-    cors: "*"
-})
+  cors: "*",
+});
 
 app.use(cors());
 
@@ -24,5 +24,21 @@ app.use(express.json());
 
 app.use(testRoutes);
 app.use(pedidoRoutes);
+
+io.on("connection", (socket) => {
+  console.log("Cliente conectado");
+
+  socket.on("nuevoPedido", (pedido) => {
+    // Emitir evento a todos los usuarios de una sala en especifico
+    io.to("cocina").emit("nuevoPedidoCocina", pedido);
+  });
+
+  // Manejar conexión de la cocina
+  socket.on("cocinaConectada", () => {
+    console.log("Tablet de cocina conectada");
+    // Unimos al usuario a una sala en especifico
+    socket.join("cocina");
+  });
+});
 
 server.listen(PORT, () => console.log(`SERVER ${PORT}`));
