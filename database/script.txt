@@ -1,0 +1,21 @@
+CREATE DATABASE cafe;
+
+CREATE TABLE pedidos(
+	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    cantidad INT NOT NULL DEFAULT 1,
+    mesa INT NOT NULL,
+    precio INT NOT NULL,
+    hora_pedido TIME NOT NULL DEFAULT CURRENT_TIME()
+);
+
+INSERT INTO pedidos(nombre, cantidad, mesa, precio) VALUES
+('Café', 2, 10, 2000),
+('Almojabana', 3, 10, 3000),
+('Buñuelo', 1, 10, 1000),
+('Leche', 3, 12, 2000),
+('Milo', 3, 6, 3200),
+('Galleta', 5, 12, 1500),
+('Yogurt', 2, 6, 10000),
+('Pan', 1, 1, 2000),
+('Queso', 3, 1, 5000)
