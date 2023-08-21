@@ -18,5 +18,3 @@ router.get("/api/get-order-by-table", getOrderbyTable);
 router.delete("/api/delete-orders", deleteOrders);
 
 module.exports = router;
-
-// MAÑANA SE DEBE CREAR UNA NUEVA TABLA PARA LOS PRODUCTOS CON SU RESPECTIVA CATEGORIA

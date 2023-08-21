@@ -19,3 +19,65 @@ INSERT INTO pedidos(nombre, cantidad, mesa, precio) VALUES
 ('Yogurt', 2, 6, 10000),
 ('Pan', 1, 1, 2000),
 ('Queso', 3, 1, 5000)
+
+CREATE TABLE categorias(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre_categoria VARCHAR(255) NOT NULL
+);
+
+INSERT INTO categorias(nombre_categoria)VALUES
+("BEBIDAS CALIENTES"),
+("BEBIDAS FRIAS"),
+("ACOMPAÑANTES"),
+("ADICIONES")
+
+CREATE TABLE productos(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre_producto VARCHAR(255) NOT NULL,
+    precio_producto INT NOT NULL,
+    categoria_id INT NOT NULL,
+    FOREIGN KEY(categoria_id) REFERENCES categorias(id)
+);
+
+INSERT INTO productos(nombre_producto, precio_producto, categoria_id) VALUES
+('CAFÉ', 4000, 1),
+('CAPUCCINO', 7000, 1),
+('CHOCOLATE DE LA ABUELA', 6000, 1),
+('ADICIÓN DE CLAVOS Y CANELA', 1000, 1),
+('TÉ CHAI', 7000, 1),
+('MILO', 7000, 1),
+('COLADITA DE CAFÉ', 8000, 1),
+('ARÓMATICAS', 2500, 1),
+('INFUSIONES', 6000, 1),
+('GRANIZADO DE CAFÉ', 9000, 2),
+('COFFEE TONIC', 10000, 2),
+('MALTEADA DE CHOCOLATE CON ARANDANOS', 12000, 2),
+('SODA DE MASMELOS', 9000, 2),
+('TÉ CHAI', 8000, 2),
+('MILO', 8000, 2),
+('MALTEADA MÁGICA', 15000, 2),
+('LIMONADA DE COCO', 9000, 2),
+('CEVICHE DE PLÁTANO', 10000, 3),
+('BROWNIE', 4500, 3),
+('BROWNIE CON HELADO', 7000, 3),
+('PORCIÓN DE TORTA (zanahoria-chocolate)', 7000, 3),
+('WAFFLES', 12000, 3),
+('ALFAJOR', 3000, 3),
+('SANDWICH', 12000, 3),
+('CHEESECAKE DE LIMÓN', 7500, 3),
+('SIROPE DE LA ABUELA', 1000, 4),
+('CHANTILLY', 3000, 4),
+('LECHE DE ALMENDRAS', 3000, 4),
+('HELADO DE VAINILLA', 3000, 4),
+('PLATANITOS', 3000, 4)
+
+---POR ID DE LA CATEGORIA---
+SELECT productos.id as id_producto, nombre_producto, categorias.id as id_categoria,
+nombre_categoria, productos.precio_producto FROM productos, categorias
+WHERE productos.categoria_id = 4 AND categorias.id = 4
+
+---PRODUCTOS EN GENERAL---
+SELECT productos.id as id_producto, nombre_producto, categorias.id as id_categoria,
+nombre_categoria, productos.precio_producto
+FROM productos, categorias
+WHERE productos.categoria_id = categorias.id
