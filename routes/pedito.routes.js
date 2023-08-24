@@ -5,6 +5,7 @@ const {
     deleteOrder,
     getOrderbyTable,
     deleteOrders,
+    getOrders,
 } = require("../controllers/pedido.controller.js")
 
 const router = Router();
@@ -16,5 +17,6 @@ router.delete("/api/delete-order/:id", deleteOrder);
 
 router.get("/api/get-order-by-table", getOrderbyTable);
 router.delete("/api/delete-orders", deleteOrders);
+router.get("/api/get-orders", getOrders);
 
 module.exports = router;

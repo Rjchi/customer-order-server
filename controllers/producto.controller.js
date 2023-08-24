@@ -7,7 +7,7 @@ const getProducts = async (req, res) => {
     );
 
     if (result.length === 0)
-      return res.status(404).json({ message: `No hay productos.` });
+      return res.status(204);
 
     return res.json(result);
   } catch (error) {

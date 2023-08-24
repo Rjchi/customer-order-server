@@ -86,10 +86,24 @@ const deleteOrders = async (req, res) => {
         .status(200)
         .json({ message: `Pedidos eliminado Correctamente` });
 
-    return res.json(result.affectedRows);
+    return res.status(404).json({ message: `No hay pedidos.` })
   } catch (error) {
     return res.status(500).json({
       message: `Error al elminar los pedidos detalles: ${error.message}`,
+    });
+  }
+};
+
+const getOrders = async (req, res) => {
+  try {
+    const [result] = await pool.query("SELECT * From pedidos");
+    if (result.length === 0)
+      return res.status(204);
+
+    return res.json(result);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Error al consultar todos los pedidos detalles: ${error.message}`,
     });
   }
 };
@@ -100,4 +114,5 @@ module.exports = {
   deleteOrder,
   getOrderbyTable,
   deleteOrders,
+  getOrders,
 };
