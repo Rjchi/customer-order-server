@@ -46,8 +46,8 @@ const deleteOrder = async (req, res) => {
       req.params.id,
     ]);
 
-    if (result.affectedRows === 0)
-      return res.status(404).json({ message: "Pedido no encontrado" });
+    if (result.affectedRows !== 0)
+      return res.status(200).json({ message: "Pedido Eliminado" });
 
     return res.sendStatus(204);
   } catch (error) {
@@ -86,7 +86,7 @@ const deleteOrders = async (req, res) => {
         .status(200)
         .json({ message: `Pedidos eliminado Correctamente` });
 
-    return res.status(404).json({ message: `No hay pedidos.` })
+    return res.status(204)
   } catch (error) {
     return res.status(500).json({
       message: `Error al elminar los pedidos detalles: ${error.message}`,
@@ -97,9 +97,6 @@ const deleteOrders = async (req, res) => {
 const getOrders = async (req, res) => {
   try {
     const [result] = await pool.query("SELECT * From pedidos");
-    if (result.length === 0)
-      return res.status(204);
-
     return res.json(result);
   } catch (error) {
     return res.status(500).json({

@@ -32,9 +32,9 @@ app.use(categoriaRoutes);
 io.on("connection", (socket) => {
   console.log("Cliente conectado");
 
-  socket.on("nuevoPedido", (pedido) => {
+  socket.on("nuevoPedido", () => {
     // Emitir evento a todos los usuarios de una sala en especifico
-    io.to("cocina").emit("nuevoPedidoCocina", pedido);
+    io.to("cocina").emit("nuevoPedidoCocina");
   });
 
   // Manejar conexión de la cocina
