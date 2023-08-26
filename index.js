@@ -12,6 +12,8 @@ const pedidoRoutes = require("./routes/pedito.routes.js");
 const productoRoutes = require("./routes/producto.routes.js");
 const categoriaRoutes = require("./routes/categorias.routes.js");
 
+const openaiRoutes = require("./routes/openai.routes.js");
+
 // Servidores:
 const app = express();
 const server = http.createServer(app);
@@ -23,11 +25,14 @@ app.use(cors());
 
 // Procesamientos:
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(testRoutes);
 app.use(pedidoRoutes);
 app.use(productoRoutes);
 app.use(categoriaRoutes);
+
+app.use(openaiRoutes);
 
 io.on("connection", (socket) => {
   console.log("Cliente conectado");
