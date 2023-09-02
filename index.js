@@ -40,6 +40,7 @@ io.on("connection", (socket) => {
   socket.on("nuevoPedido", () => {
     // Emitir evento a todos los usuarios de una sala en especifico
     io.to("cocina").emit("nuevoPedidoCocina");
+    io.to("caja").emit("nuevoPedidoCocina");
   });
 
   // Manejar conexión de la cocina
@@ -47,6 +48,11 @@ io.on("connection", (socket) => {
     console.log("Tablet de cocina conectada");
     // Unimos al usuario a una sala en especifico
     socket.join("cocina");
+  });
+
+  socket.on("cajaConectada", () => {
+    console.log("Caja conectada");
+    socket.join("caja");
   });
 });
 
