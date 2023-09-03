@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-09-2023 a las 03:34:50
+-- Tiempo de generación: 04-09-2023 a las 00:30:41
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -55,19 +55,16 @@ CREATE TABLE `pedidos` (
   `cantidad` int(11) NOT NULL DEFAULT 1,
   `mesa` int(11) NOT NULL,
   `precio` int(11) NOT NULL,
-  `hora_pedido` time NOT NULL DEFAULT curtime()
+  `hora_pedido` time NOT NULL DEFAULT curtime(),
+  `listo` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `nombre`, `cantidad`, `mesa`, `precio`, `hora_pedido`) VALUES
-(690, 'COFFEE TONIC', 3, 2, 10000, '17:09:31'),
-(691, 'WAFFLES', 2, 1, 12000, '17:09:58'),
-(692, 'CHANTILLY', 2, 6, 3000, '17:20:00'),
-(693, 'LIMONADA DE COCO', 5, 2, 9000, '17:29:51'),
-(694, 'CAPUCCINO', 2, 1, 7000, '17:56:28');
+INSERT INTO `pedidos` (`id`, `nombre`, `cantidad`, `mesa`, `precio`, `hora_pedido`, `listo`) VALUES
+(1390, 'BROWNIE CON HELADO', 1, 1, 7000, '17:28:17', 0);
 
 -- --------------------------------------------------------
 
@@ -155,7 +152,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=695;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1391;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
