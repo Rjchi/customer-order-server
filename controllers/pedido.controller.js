@@ -86,7 +86,7 @@ const deleteOrders = async (req, res) => {
         .status(200)
         .json({ message: `Pedidos eliminado Correctamente` });
 
-    return res.status(204)
+    return res.status(204);
   } catch (error) {
     return res.status(500).json({
       message: `Error al elminar los pedidos detalles: ${error.message}`,
@@ -105,6 +105,31 @@ const getOrders = async (req, res) => {
   }
 };
 
+const getOrdersNotCheck = async (req, res) => {
+  try {
+    const [result] = await pool.query("SELECT * From pedidos WHERE listo = 0");
+    return res.json(result);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Error al consultar todos los pedidos detalles: ${error.message}`,
+    });
+  }
+};
+
+const updateCheck = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      "UPDATE pedidos SET listo = 1 WHERE id = ?",
+      [req.params.id]
+    );
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Error al consultar todos los pedidos detalles: ${error.message}`,
+    });
+  }
+};
+
 module.exports = {
   createOrder,
   updateOrder,
@@ -112,4 +137,6 @@ module.exports = {
   getOrderbyTable,
   deleteOrders,
   getOrders,
+  getOrdersNotCheck,
+  updateCheck,
 };

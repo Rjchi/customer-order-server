@@ -6,6 +6,8 @@ const {
     getOrderbyTable,
     deleteOrders,
     getOrders,
+    getOrdersNotCheck,
+    updateCheck,
 } = require("../controllers/pedido.controller.js")
 
 const router = Router();
@@ -16,7 +18,10 @@ router.put("/api/update-order/:id", updateOrder);
 router.delete("/api/delete-order/:id", deleteOrder);
 
 router.get("/api/get-order-by-table", getOrderbyTable);
-router.delete("/api/delete-orders", deleteOrders);
 router.get("/api/get-orders", getOrders);
+router.get("/api/get-orders-not-check", getOrdersNotCheck);
+
+router.put("/api/update-check/:id", updateCheck);
+router.delete("/api/delete-orders", deleteOrders);
 
 module.exports = router;
