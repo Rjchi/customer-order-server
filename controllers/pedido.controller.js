@@ -86,7 +86,7 @@ const deleteOrders = async (req, res) => {
         .status(200)
         .json({ message: `Pedidos eliminado Correctamente` });
 
-    return res.status(204);
+    return res.status(404).json({ message: "No hay pedidos para eliminar" });
   } catch (error) {
     return res.status(500).json({
       message: `Error al elminar los pedidos detalles: ${error.message}`,
