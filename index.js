@@ -56,6 +56,11 @@ io.on("connection", (socket) => {
     console.log("Caja conectada");
     socket.join("caja");
   });
+
+  socket.on("recargaPedidos", () => {
+    console.log("RECARGA BACKEND")
+    io.to("cocina").emit("recargaPedidos");
+  });
 });
 
 server.listen(PORT, () => console.log(`SERVER ${PORT}`));
