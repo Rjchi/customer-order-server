@@ -69,6 +69,10 @@ io.on("connection", (socket) => {
   socket.on("recargaPedidos", () => {
     io.to("cocina").emit("recargaPedidos");
   });
+
+  socket.on("recargaPedidosCaja", () => {
+    io.to("caja").emit("recargaPedidosCaja");
+  });
 });
 
 server.listen(PORT, () => console.log(`SERVER ${PORT}`));
