@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const { getCategories } = require("../controllers/categorias.controller.js")
+const categorias = require("../controllers/categorias.controller.js")
 
 const router = Router();
 
-router.get("/api/get-categories", getCategories);
+router.get("/api/get-categories", categorias.getCategories);
 
 module.exports = router;

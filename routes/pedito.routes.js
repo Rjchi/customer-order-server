@@ -1,27 +1,19 @@
 const { Router } = require("express");
-const {
-    createOrder,
-    updateOrder,
-    deleteOrder,
-    getOrderbyTable,
-    deleteOrders,
-    getOrders,
-    getOrdersNotCheck,
-    updateCheck,
-} = require("../controllers/pedido.controller.js")
+const pedido = require("../controllers/pedido.controller.js");
 
 const router = Router();
 
-router.post("/api/create-order", createOrder);
-router.put("/api/update-order/:id", updateOrder);
+router
+  .get("/api/get-order-by-table", pedido.getOrderbyTable)
+  .get("/api/get-orders", pedido.getOrders)
+  .get("/api/get-orders-not-check", pedido.getOrdersNotCheck)
 
-router.delete("/api/delete-order/:id", deleteOrder);
+  .post("/api/create-order", pedido.createOrder)
 
-router.get("/api/get-order-by-table", getOrderbyTable);
-router.get("/api/get-orders", getOrders);
-router.get("/api/get-orders-not-check", getOrdersNotCheck);
+  .put("/api/update-order/:id", pedido.updateOrder)
+  .put("/api/update-check/:id", pedido.updateCheck)
 
-router.put("/api/update-check/:id", updateCheck);
-router.delete("/api/delete-orders", deleteOrders);
+  .delete("/api/delete-order/:id", pedido.deleteOrder)
+  .delete("/api/delete-orders", pedido.deleteOrders);
 
 module.exports = router;

@@ -6,7 +6,7 @@ const deleteOrdersByTable = async (req, res) => {
       req.params.table,
     ]);
     if (result.affectedRows !== 0) {
-        return res.status(200).json({ message: "Eliminado correctamente" });
+      return res.status(200).json({ message: "Eliminado correctamente" });
     }
     return res.status(404).json({ message: "No hay pedidos para esa mesa" });
   } catch (error) {

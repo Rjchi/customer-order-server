@@ -1,6 +1,8 @@
 const pool = require("../database/db.js");
 
-// Consultas para cliente:
+/**-----------------------
+ * Consultas para mesero
+ -----------------------*/
 const createOrder = async (req, res) => {
   try {
     const { nombre, cantidad, mesa, precio } = req.body;
@@ -39,7 +41,9 @@ const updateOrder = async (req, res) => {
   }
 };
 
-// Ambos:
+/**-------------------------------
+ * Consultas para todas las salas
+ -------------------------------*/
 const deleteOrder = async (req, res) => {
   try {
     const [result] = await pool.query("DELETE FROM pedidos WHERE id = ?", [
@@ -57,7 +61,9 @@ const deleteOrder = async (req, res) => {
   }
 };
 
-// Consultas para cocina:
+/**-----------------------
+ * Consultas para cocina
+ -----------------------*/
 const getOrderbyTable = async (req, res) => {
   try {
     const [result] = await pool.query("SELECT * FROM pedidos WHERE mesa = ?", [
