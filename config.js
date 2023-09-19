@@ -14,6 +14,8 @@ const DB_DATABASE = process.env.DB_DATABASE;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_PORT = process.env.DB_PORT;
 
+const ORIGEN = process.env.ORIGEN;
+
 module.exports = {
   PORT,
   DB_HOST,
@@ -21,4 +23,5 @@ module.exports = {
   DB_DATABASE,
   DB_PASSWORD,
   DB_PORT,
+  ORIGEN,
 };

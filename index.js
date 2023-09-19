@@ -2,8 +2,18 @@ const http = require("http");
 const cors = require("cors");
 const express = require("express");
 
+/**--------------------------------------------------
+ * Importaciones para la autenticación por sesiones
+ --------------------------------------------------*/
+const { v4 } = require("uuid");
+const pool = require("./database/db.js");
+const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
+
+const secretKey = v4();
+
 const { join } = require("path");
-const { PORT } = require("./config.js");
+const config = require("./config.js");
 const { Server: SocketServer } = require("socket.io");
 
 /**----------------
@@ -24,13 +34,51 @@ const io = new SocketServer(server, {
   cors: "*",
 });
 
-app.use(cors());
+app.use(
+  cors({
+    /**------------------------------
+   * Origen de las solicitudes
+   * Y permitimos las cookies
+   ------------------------------*/
+    origin: `${config.ORIGEN}`,
+    credentials: true,
+  })
+);
 
 /**----------------
  * Procesamientos
  ----------------*/
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+/**--------------------------------------------------
+ * Configuracion de sessions en la base de datos
+ * --------------------------------------------------*/
+const sessionStore = new MySQLStore(
+  {
+    pool,
+    clearExpired: true,
+    checkExpirationInterval: 900000,
+    expiration: 60000,
+  },
+  pool
+);
+
+/**---------------------------------------
+ * Configuracion de la cookie de sesión
+ * --------------------------------------*/
+app.use(
+  session({
+    secret: secretKey,
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStore,
+    cookie: {
+      secure: false,
+      maxAge: 60000,
+    },
+  })
+);
 
 app.use(cajaRoutes);
 app.use(testRoutes);
@@ -78,4 +126,6 @@ io.on("connection", (socket) => {
 /**------------------------------------------------------------------------------------------------
  * 0.0.0.0 es la representación de una dirección IP especial que indica "cualquier dirección"
  ------------------------------------------------------------------------------------------------*/
-server.listen(PORT, "0.0.0.0", () => console.log(`SERVER ${PORT}`));
+server.listen(config.PORT, "0.0.0.0", () =>
+  console.log(`SERVER ${config.PORT}`)
+);
