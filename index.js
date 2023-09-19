@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("nuevoPedido", () => {
-  /**--------------------------------------------------------------
+    /**--------------------------------------------------------------
    * Emitir evento a todos los usuarios de una sala en especifico
    --------------------------------------------------------------*/
     io.to("cocina").emit("nuevoPedidoCocina");
@@ -75,4 +75,7 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT, () => console.log(`SERVER ${PORT}`));
+/**------------------------------------------------------------------------------------------------
+ * 0.0.0.0 es la representación de una dirección IP especial que indica "cualquier dirección"
+ ------------------------------------------------------------------------------------------------*/
+server.listen(PORT, "0.0.0.0", () => console.log(`SERVER ${PORT}`));
