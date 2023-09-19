@@ -22,6 +22,14 @@ const Logueo = async (req, res) => {
         user[0][0].contrasenia_hash
       );
       if (match) {
+        /**------------------------------------------------------
+         * Almacenamos la información del usuario en la sesión
+         ------------------------------------------------------*/
+        req.session.user = {
+          id: user[0][0].id,
+          nombre: user[0][0].nombre,
+          documento: user[0][0].documento,
+        };
         return res.status(200).json({
           id: user[0][0].id,
           nombre: user[0][0].nombre,
