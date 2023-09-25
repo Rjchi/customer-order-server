@@ -5,11 +5,11 @@ const pool = require("../database/db.js");
  -----------------------*/
 const createOrder = async (req, res) => {
   try {
-    const { nombre, cantidad, mesa, precio } = req.body;
+    const { nombre, cantidad, mesa, precio, ped_usu_mesero_doc } = req.body;
 
     const [result] = await pool.query(
-      "INSERT INTO pedidos(nombre, cantidad, mesa, precio) VALUES (?, ?, ?, ?)",
-      [nombre, cantidad, mesa, precio]
+      "INSERT INTO pedidos(nombre, cantidad, mesa, precio, ped_usu_mesero_doc) VALUES (?, ?, ?, ?, ?)",
+      [nombre, cantidad, mesa, precio, ped_usu_mesero_doc]
     );
 
     if (result.affectedRows === 0)

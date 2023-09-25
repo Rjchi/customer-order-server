@@ -81,3 +81,24 @@ SELECT productos.id as id_producto, nombre_producto, categorias.id as id_categor
 nombre_categoria, productos.precio_producto
 FROM productos, categorias
 WHERE productos.categoria_id = categorias.id
+
+
+CREATE TABLE mesa(
+	mesa_numero int PRIMARY KEY NOT NULL,
+    mesa_creada time DEFAULT CURRENT_TIME() NOT NULL
+)
+
+ALTER TABLE pedidos
+ADD COLUMN
+mesa INT,
+ADD FOREIGN KEY (mesa) REFERENCES mesa(mesa_numero)
+
+CREATE TABLE rol(
+    rol_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    rol_nombre VARCHAR(30) NOT NULL,
+    rol_creado TIME DEFAULT CURRENT_TIME()
+)
+
+ALTER TABLE pedidos
+ADD COLUMN ped_usu_mesero_id VARCHAR(30),
+ADD FOREIGN KEY (ped_usu_mesero_id) REFERENCES usuarios(documento)
