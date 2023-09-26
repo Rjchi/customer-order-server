@@ -3,7 +3,7 @@ const pool = require("../database/db.js");
 const getProducts = async (req, res) => {
   try {
     const [result] = await pool.query(
-      "SELECT productos.id as id_producto, nombre_producto, categorias.id as id_categoria, nombre_categoria, productos.precio_producto FROM productos, categorias WHERE productos.categoria_id = categorias.id"
+      "SELECT productos.id as id_producto, nombre_producto, imagen_producto, categorias.id as id_categoria, nombre_categoria, productos.precio_producto FROM productos, categorias WHERE productos.categoria_id = categorias.id"
     );
 
     if (result.length === 0)
