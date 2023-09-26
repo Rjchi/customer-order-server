@@ -83,8 +83,8 @@ const Registro = async (req, res) => {
       );
 
       const [result] = await pool.query(
-        "INSERT INTO usuarios (documento, nombre, contrasenia_hash) VALUES (?, ?, ?)",
-        [req.body.documento, req.body.nombre, hashedPassword]
+        "INSERT INTO usuarios (documento, nombre, contrasenia_hash, usu_rol_id) VALUES (?, ?, ?, ?)",
+        [req.body.documento, req.body.nombre, hashedPassword, req.body.usu_rol_id]
       );
 
       if (result.affectedRows === 1) {

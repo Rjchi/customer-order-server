@@ -4,6 +4,7 @@
 
 const { Router } = require("express");
 const pool = require("../database/db.js");
+const validateCookie = require("../middlewares/validarCookie.middlewares.js")
 
 const router = Router();
 
@@ -13,6 +14,10 @@ router.get("/test", async (req, res) => {
     test: `ting`,
     query: `El resultado de la suma es: ${result[0].RESULT}`,
   });
+});
+
+router.get("/testing", validateCookie, async (req, res) => {
+  res.json(req.session.user)
 });
 
 module.exports = router;

@@ -22,6 +22,7 @@ const { Server: SocketServer } = require("socket.io");
 const cajaRoutes = require("./routes/caja.routes.js");
 const testRoutes = require("./routes/test.routes.js");
 const pedidoRoutes = require("./routes/pedito.routes.js");
+const validateRoutes = require("./routes/validate.routes.js");
 const productoRoutes = require("./routes/producto.routes.js");
 const categoriaRoutes = require("./routes/categorias.routes.js");
 const inicioSesionRoutes = require("./routes/inicioSesion.routes.js");
@@ -32,7 +33,13 @@ const inicioSesionRoutes = require("./routes/inicioSesion.routes.js");
 const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server, {
-  cors: "*",
+  cors: {
+    // origin: "*",
+    origin: config.ORIGEN,
+    // origin: "http://localhost:5173",
+    credentials: true,
+  },
+  // cors: config.ORIGEN,
 });
 
 app.use(
@@ -41,7 +48,7 @@ app.use(
    * Origen de las solicitudes
    * Y permitimos las cookies
    ------------------------------*/
-    origin: `${config.ORIGEN}`,
+    origin: config.ORIGEN,
     credentials: true,
   })
 );
@@ -87,6 +94,7 @@ app.use(pedidoRoutes);
 app.use(productoRoutes);
 app.use(categoriaRoutes);
 app.use(inicioSesionRoutes);
+app.use(validateRoutes);
 
 io.on("connection", (socket) => {
   console.log("Cliente conectado 🧍‍♂️🧍‍♂️");
