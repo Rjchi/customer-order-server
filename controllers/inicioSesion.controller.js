@@ -7,10 +7,19 @@ const pool = require("../database/db.js");
 
 const Logueo = async (req, res) => {
   try {
-    const user = await pool.query(
-      "SELECT * FROM usuarios WHERE documento = ?",
-      [req.body.documento]
-    );
+    const selectUser = async (doc) => {
+      return await pool.query("SELECT * FROM usuarios WHERE documento = ?", [
+        doc,
+      ]);
+    };
+
+    const selectRol = async (id) => {
+      return await pool.query("SELECT rol_nombre FROM rol WHERE rol_id = ?", [
+        id,
+      ]);
+    };
+
+    let user = await selectUser(req.body.documento);
 
     if (user[0].length !== 0) {
       /**---------------------------------------------
@@ -22,19 +31,30 @@ const Logueo = async (req, res) => {
         user[0][0].contrasenia_hash
       );
       if (match) {
+        const usu_rol = await selectRol(user[0][0].usu_rol_id);
+
+        await pool.query(
+          "UPDATE usuarios SET usu_activo = true, usu_ingreso = NOW(), usu_salida = null WHERE id = ?",
+          [user[0][0].id]
+        );
+
+        let user_log = await selectUser(req.body.documento);
+
         /**------------------------------------------------------
          * Almacenamos la información del usuario en la sesión
          ------------------------------------------------------*/
-        req.session.user = {
-          id: user[0][0].id,
-          nombre: user[0][0].nombre,
-          documento: user[0][0].documento,
+        const usuario = {
+          id: user_log[0][0].id,
+          nombre: user_log[0][0].nombre,
+          documento: user_log[0][0].documento,
+          usu_ingreso: user_log[0][0].usu_ingreso,
+          usu_salida: user_log[0][0].usu_salida,
+          usu_activo: user_log[0][0].usu_activo,
+          usu_rol: usu_rol[0][0].rol_nombre,
         };
-        return res.status(200).json({
-          id: user[0][0].id,
-          nombre: user[0][0].nombre,
-          documento: user[0][0].documento,
-        });
+
+        req.session.user = usuario;
+        return res.status(200).json(usuario);
       } else {
         return res
           .status(401)
