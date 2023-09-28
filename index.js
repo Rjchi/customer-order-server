@@ -35,8 +35,7 @@ const server = http.createServer(app);
 const io = new SocketServer(server, {
   cors: {
     // origin: "*",
-    origin: config.ORIGEN,
-    // origin: "http://localhost:5173",
+    origin: [config.ORIGEN,"http://localhost:5173"],
     credentials: true,
   },
   // cors: config.ORIGEN,
@@ -48,7 +47,7 @@ app.use(
    * Origen de las solicitudes
    * Y permitimos las cookies
    ------------------------------*/
-    origin: config.ORIGEN,
+   origin: [config.ORIGEN,"http://localhost:5173"],
     credentials: true,
   })
 );
