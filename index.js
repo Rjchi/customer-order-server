@@ -9,6 +9,7 @@ const { v4 } = require("uuid");
 const pool = require("./database/db.js");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
+const cookieParser = require('cookie-parser');
 
 const secretKey = v4();
 
@@ -57,7 +58,7 @@ app.use(
  ----------------*/
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 /**--------------------------------------------------
  * Configuracion de sessions en la base de datos
  * --------------------------------------------------*/
@@ -81,6 +82,7 @@ app.use(
     saveUninitialized: false,
     store: sessionStore,
     cookie: {
+      httpOnly: true,
       secure: false,
       maxAge: 60000,
     },

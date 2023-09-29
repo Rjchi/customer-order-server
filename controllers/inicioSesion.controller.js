@@ -54,7 +54,13 @@ const Logueo = async (req, res) => {
         };
 
         req.session.user = usuario;
-        return res.status(200).json(usuario);
+        const idSesion = req.session.id;
+        const sessionData = {
+          idSesion,
+        }
+        console.log(req.session.id);
+        res.status(200).json({usuario,sessionData});
+        return;
       } else {
         return res
           .status(401)
@@ -84,7 +90,12 @@ const Registro = async (req, res) => {
 
       const [result] = await pool.query(
         "INSERT INTO usuarios (documento, nombre, contrasenia_hash, usu_rol_id) VALUES (?, ?, ?, ?)",
-        [req.body.documento, req.body.nombre, hashedPassword, req.body.usu_rol_id]
+        [
+          req.body.documento,
+          req.body.nombre,
+          hashedPassword,
+          req.body.usu_rol_id,
+        ]
       );
 
       if (result.affectedRows === 1) {
