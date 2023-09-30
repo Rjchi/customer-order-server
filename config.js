@@ -16,6 +16,8 @@ const DB_PORT = process.env.DB_PORT;
 
 const ORIGEN = process.env.ORIGEN;
 
+const SECRETKEY = process.env.SECRETKEY;
+
 module.exports = {
   PORT,
   DB_HOST,
@@ -24,4 +26,5 @@ module.exports = {
   DB_PASSWORD,
   DB_PORT,
   ORIGEN,
+  SECRETKEY
 };
