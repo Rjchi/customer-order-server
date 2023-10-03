@@ -40,6 +40,7 @@ const Logueo = async (req, res) => {
         );
 
         let user_log = await selectUser(req.body.documento);
+        // delete user_log[0][0].contrasenia_hash
 
         /**------------------------------------------------------
          * Almacenamos la información del usuario en la sesión
@@ -64,16 +65,11 @@ const Logueo = async (req, res) => {
          * | Creamos el token para el usuario
          * --------------------------------------*/
         const tokenJwt = {
-          response: {
-            token: jwt.createAccessToken(usuario),
-            refresh: jwt.createRefreshToken(usuario),
-          },
+          token: jwt.createAccessToken(usuario),
+          refresh: jwt.createRefreshToken(usuario),
         };
 
-        console.log(req.session.id);
-        console.log(tokenJwt);
-        res.status(200).json({ usuario, sessionData, tokenJwt });
-        return;
+        return res.status(200).json({ usuario, sessionData, tokenJwt });
       } else {
         return res
           .status(401)
