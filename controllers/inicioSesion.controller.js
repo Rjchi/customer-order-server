@@ -3,6 +3,7 @@
  * Con el fin de almacenar contraseñas seguras en la base de datos
  ------------------------------------------------------------------*/
 const bcrypt = require("bcrypt");
+const jwt = require("../utils/jwt.js");
 const pool = require("../database/db.js");
 
 const Logueo = async (req, res) => {
@@ -57,9 +58,21 @@ const Logueo = async (req, res) => {
         const idSesion = req.session.id;
         const sessionData = {
           idSesion,
-        }
+        };
+
+        /**--------------------------------------
+         * | Creamos el token para el usuario
+         * --------------------------------------*/
+        const tokenJwt = {
+          response: {
+            token: jwt.createAccessToken(usuario),
+            refresh: jwt.createRefreshToken(usuario),
+          },
+        };
+
         console.log(req.session.id);
-        res.status(200).json({usuario,sessionData});
+        console.log(tokenJwt);
+        res.status(200).json({ usuario, sessionData, tokenJwt });
         return;
       } else {
         return res
@@ -113,10 +126,10 @@ const Registro = async (req, res) => {
   }
 };
 
-const logout =  (req, res) => {
+const logout = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      res.status(500).json({ message: 'Error al cerrar sesión' });
+      res.status(500).json({ message: "Error al cerrar sesión" });
       throw err;
     } else {
       res.status(204).send();
