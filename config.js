@@ -17,6 +17,7 @@ const DB_PORT = process.env.DB_PORT;
 const ORIGEN = process.env.ORIGEN;
 
 const SECRETKEY = process.env.SECRETKEY;
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 module.exports = {
   PORT,
@@ -26,5 +27,6 @@ module.exports = {
   DB_PASSWORD,
   DB_PORT,
   ORIGEN,
-  SECRETKEY
+  SECRETKEY,
+  JWT_SECRET_KEY
 };

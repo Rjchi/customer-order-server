@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET_KEY } = process.env;
+const config = require("../config.js");
 
 const createAccessToken = (user) => {
   const expiration = new Date();
@@ -7,7 +7,7 @@ const createAccessToken = (user) => {
    * | Ese + 5 depende de lo que queramos que dure el token
    * ---------------------------------------------------------*/
   expiration.setHours(expiration.getHours() + 5);
-  return jwt.sign(_tokenPayload(user, expiration), JWT_SECRET_KEY);
+  return jwt.sign(_tokenPayload(user, expiration), config.JWT_SECRET_KEY);
 };
 
 const createRefreshToken = (user) => {
@@ -16,14 +16,14 @@ const createRefreshToken = (user) => {
    * | Ese + 1 estamos diciendo que el refresh dure un mes
    * ---------------------------------------------------------*/
   expiration.setMonth(expiration.getMonth() + 1);
-  return jwt.sign(_tokenPayload(user, expiration, "refresh"), JWT_SECRET_KEY);
+  return jwt.sign(_tokenPayload(user, expiration, "refresh"), config.JWT_SECRET_KEY);
 };
 
 /**-----------------------------
  * | Decodificamos el token
  * -----------------------------*/
 const decodedToken = (token) => {
-  return jwt.decode(token, JWT_SECRET_KEY);
+  return jwt.decode(token, config.JWT_SECRET_KEY);
 };
 
 const _tokenPayload = (user, expiration, tokenType = "token") => {
