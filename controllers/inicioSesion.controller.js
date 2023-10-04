@@ -31,6 +31,7 @@ const Logueo = async (req, res) => {
         req.body.contrasenia,
         user[0][0].contrasenia_hash
       );
+
       if (match) {
         const usu_rol = await selectRol(user[0][0].usu_rol_id);
 
@@ -40,36 +41,24 @@ const Logueo = async (req, res) => {
         );
 
         let user_log = await selectUser(req.body.documento);
-        // delete user_log[0][0].contrasenia_hash
+        delete user_log[0][0].contrasenia_hash;
+        delete user_log[0][0].usu_rol_id;
 
         /**------------------------------------------------------
          * Almacenamos la información del usuario en la sesión
          ------------------------------------------------------*/
         const usuario = {
-          id: user_log[0][0].id,
-          nombre: user_log[0][0].nombre,
-          documento: user_log[0][0].documento,
-          usu_ingreso: user_log[0][0].usu_ingreso,
-          usu_salida: user_log[0][0].usu_salida,
-          usu_activo: user_log[0][0].usu_activo,
+          ...user_log[0][0],
           usu_rol: usu_rol[0][0].rol_nombre,
-        };
-
-        req.session.user = usuario;
-        const idSesion = req.session.id;
-        const sessionData = {
-          idSesion,
         };
 
         /**--------------------------------------
          * | Creamos el token para el usuario
          * --------------------------------------*/
-        const tokenJwt = {
+        return res.status(200).json({
           token: jwt.createAccessToken(usuario),
           refresh: jwt.createRefreshToken(usuario),
-        };
-
-        return res.status(200).json({ usuario, sessionData, tokenJwt });
+        });
       } else {
         return res
           .status(401)
