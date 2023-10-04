@@ -16,7 +16,7 @@ const createRefreshToken = (user) => {
    * | Ese + 1 estamos diciendo que el refresh dure un mes
    * ---------------------------------------------------------*/
   expiration.setMonth(expiration.getMonth() + 1);
-  return jwt.sign(_tokenPayload(user, expiration), JWT_SECRET_KEY);
+  return jwt.sign(_tokenPayload(user, expiration, "refresh"), JWT_SECRET_KEY);
 };
 
 /**-----------------------------
