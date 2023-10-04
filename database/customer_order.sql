@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-09-2023 a las 20:53:24
+-- Tiempo de generación: 04-10-2023 a las 21:04:41
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -59,13 +59,6 @@ CREATE TABLE `pedidos` (
   `mesa` varchar(20) NOT NULL,
   `ped_usu_mesero_doc` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `pedidos`
---
-
-INSERT INTO `pedidos` (`id`, `nombre`, `cantidad`, `precio`, `hora_pedido`, `listo`, `mesa`, `ped_usu_mesero_doc`) VALUES
-(1741, 'ADICIÓN DE CLAVOS Y CANELA', 1, 1000, '13:35:31', 0, '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -142,18 +135,6 @@ INSERT INTO `rol` (`rol_id`, `rol_nombre`, `rol_creado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sessions`
---
-
-CREATE TABLE `sessions` (
-  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `expires` int(11) UNSIGNED NOT NULL,
-  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -173,9 +154,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `documento`, `nombre`, `contrasenia_hash`, `usu_rol_id`, `usu_activo`, `usu_ingreso`, `usu_salida`) VALUES
-(1, '1002546402', 'Richi', '$2b$10$JzRIpkrd0g/sNF9s0APSJuQSCdaVDByRCq3uTFzetAk61v5BQS.Iq', 1, 1, '2023-09-26 04:38:49', NULL),
-(5, '1002546403', 'Rosa', '$2b$10$O/J9X16m1B6E7fgV1Y4WteuJekF2.t/0qFqhXCEDR.nBOE7.xTdg.', 3, 1, '2023-09-26 04:39:45', NULL),
-(6, '1002546404', 'Pepe', '$2b$10$Ql4m9GMny2diimIJDKSgJ.FzYwrbq.VHJDinrsDcH9KvVGZSkRKsy', 2, 1, '2023-09-26 04:38:07', NULL),
+(1, '1002546402', 'Richi', '$2b$10$JzRIpkrd0g/sNF9s0APSJuQSCdaVDByRCq3uTFzetAk61v5BQS.Iq', 1, 1, '2023-10-02 17:37:15', NULL),
+(5, '1002546403', 'Rosa', '$2b$10$O/J9X16m1B6E7fgV1Y4WteuJekF2.t/0qFqhXCEDR.nBOE7.xTdg.', 3, 1, '2023-10-04 18:56:55', NULL),
+(6, '1002546404', 'Pepe', '$2b$10$Ql4m9GMny2diimIJDKSgJ.FzYwrbq.VHJDinrsDcH9KvVGZSkRKsy', 2, 1, '2023-09-26 19:30:07', NULL),
 (8, '1002546405', 'Pedro', '$2b$10$i4ci3GIvkYPF/zghtCgSJuBO8k7V83mRKvbO7vna8rw1I5Zv7OTb2', 4, 1, '2023-09-26 04:34:46', NULL),
 (10, '1002546406', 'Jose', '$2b$10$WrGFNpAQgqkP3uX6yEoXi.53v1yFmb26gT3WOprgQ3GOB8JXWfMsa', 3, 1, '2023-09-26 04:22:16', NULL);
 
@@ -210,12 +191,6 @@ ALTER TABLE `rol`
   ADD PRIMARY KEY (`rol_id`);
 
 --
--- Indices de la tabla `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`session_id`);
-
---
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -231,19 +206,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1742;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1756;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
