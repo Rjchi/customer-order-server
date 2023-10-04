@@ -6,10 +6,6 @@ const express = require("express");
  * Importaciones para la autenticación por sesiones
  --------------------------------------------------*/
 const pool = require("./database/db.js");
-const session = require("express-session");
-const MySQLStore = require("express-mysql-session")(session);
-const cookieParser = require('cookie-parser');
-const { join } = require("path");
 const config = require("./config.js");
 const { Server: SocketServer } = require("socket.io");
 
@@ -31,20 +27,17 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server, {
   cors: {
-    // origin: "*",
-    origin: [config.ORIGEN,"http://localhost:5173"],
+    origin: [config.ORIGEN, "http://localhost:5173"],
     credentials: true,
   },
-  // cors: config.ORIGEN,
 });
 
+/**-------
+ * Cors
+ * -------*/
 app.use(
   cors({
-    /**------------------------------
-   * Origen de las solicitudes
-   * Y permitimos las cookies
-   ------------------------------*/
-   origin: [config.ORIGEN,"http://localhost:5173"],
+    origin: [config.ORIGEN, "http://localhost:5173"],
     credentials: true,
   })
 );
@@ -54,39 +47,10 @@ app.use(
  ----------------*/
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-/**--------------------------------------------------
- * Configuracion de sessions en la base de datos
- * --------------------------------------------------*/
-const sessionStore = new MySQLStore(
-  {
-    pool,
-    clearExpired: true,
-    checkExpirationInterval: 900000,
-    expiration: 60000,
-  },
-  pool
-);
 
-/**---------------------------------------
- * Configuracion de la cookie de sesión
- * --------------------------------------*/
-
-app.use(
-  session({
-    secret: `${config.SECRETKEY}`,
-    resave: false,
-    saveUninitialized: false,
-    store: sessionStore,
-    cookie: {
-      httpOnly: true,
-      secure: false,
-      maxAge: 60000,
-      sameSite: 'strict',
-    },
-  })
-);
-
+/**---------------------
+ * Usamos de las Rutas
+ * --------------------*/
 app.use(cajaRoutes);
 app.use(testRoutes);
 app.use(pedidoRoutes);
