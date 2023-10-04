@@ -3,10 +3,12 @@ const config = require("../config.js");
 
 const createAccessToken = (user) => {
   const expiration = new Date();
-  /**---------------------------------------------------------
-   * | Ese + 5 depende de lo que queramos que dure el token
-   * ---------------------------------------------------------*/
-  expiration.setHours(expiration.getHours() + 5);
+  /**--------------------------------------------------------------
+   * | Ese + 5 horas depende de lo que queramos que dure el token
+   * ------------------------------------------------------------*/
+  // expiration.setHours(expiration.getHours() + 5);
+  expiration.setMinutes(expiration.getMinutes() + 3);
+
   return jwt.sign(_tokenPayload(user, expiration), config.JWT_SECRET_KEY);
 };
 
