@@ -14,7 +14,6 @@ const { Server: SocketServer } = require("socket.io");
 const cajaRoutes = require("./routes/caja.routes.js");
 const testRoutes = require("./routes/test.routes.js");
 const pedidoRoutes = require("./routes/pedito.routes.js");
-const validateRoutes = require("./routes/validate.routes.js");
 const productoRoutes = require("./routes/producto.routes.js");
 const categoriaRoutes = require("./routes/categorias.routes.js");
 const inicioSesionRoutes = require("./routes/inicioSesion.routes.js");
@@ -56,7 +55,6 @@ app.use(pedidoRoutes);
 app.use(productoRoutes);
 app.use(categoriaRoutes);
 app.use(inicioSesionRoutes);
-app.use(validateRoutes);
 
 /**----------------------
  * Sección de socket io
