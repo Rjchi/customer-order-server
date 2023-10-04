@@ -5,7 +5,6 @@ const express = require("express");
 /**--------------------------------------------------
  * Importaciones para la autenticación por sesiones
  --------------------------------------------------*/
-const pool = require("./database/db.js");
 const config = require("./config.js");
 const { Server: SocketServer } = require("socket.io");
 
@@ -59,6 +58,9 @@ app.use(categoriaRoutes);
 app.use(inicioSesionRoutes);
 app.use(validateRoutes);
 
+/**----------------------
+ * Sección de socket io
+ * ----------------------*/
 io.on("connection", (socket) => {
   console.log("Cliente conectado 🧍‍♂️🧍‍♂️");
 
