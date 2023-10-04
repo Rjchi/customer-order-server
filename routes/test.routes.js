@@ -4,7 +4,7 @@
 
 const { Router } = require("express");
 const pool = require("../database/db.js");
-const validateCookie = require("../middlewares/validarCookie.middlewares.js")
+const auth = require("../middlewares/auth.middleware.js")
 
 const router = Router();
 
@@ -16,8 +16,10 @@ router.get("/test", async (req, res) => {
   });
 });
 
-router.get("/testing", validateCookie, async (req, res) => {
-  res.json(req.session.user)
+router.get("/testing", auth, async (req, res) => {
+  res.json({
+    message: "Bien"
+  })
 });
 
 module.exports = router;
