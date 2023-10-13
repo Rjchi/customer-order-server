@@ -4,7 +4,7 @@
 
 const { Router } = require("express");
 const pool = require("../database/db.js");
-const auth = require("../middlewares/auth.middleware.js")
+const auth = require("../middlewares/auth.middleware.js");
 
 const router = Router();
 
@@ -18,8 +18,9 @@ router.get("/test", async (req, res) => {
 
 router.get("/testing", auth, async (req, res) => {
   res.json({
-    message: "Bien"
-  })
+    message: "Bien",
+    token: req.currentToken,
+  });
 });
 
 module.exports = router;

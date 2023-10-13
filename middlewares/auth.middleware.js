@@ -20,6 +20,10 @@ const userAuthenticated = (req, res, next) => {
         if (exp < currentTime) {
           return res.status(403).json({ message: `El token ha expirado.` });
         } else {
+          /**-----------------------------------------
+           * | Almacenamos el token solo si es valido
+           * -----------------------------------------*/
+          req.currentToken = token;
           next();
         }
       } else {

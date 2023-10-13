@@ -17,6 +17,7 @@ const pedidoRoutes = require("./routes/pedito.routes.js");
 const productoRoutes = require("./routes/producto.routes.js");
 const categoriaRoutes = require("./routes/categorias.routes.js");
 const inicioSesionRoutes = require("./routes/inicioSesion.routes.js");
+const validateTokenRoutes = require("./routes/validateToken.routes.js");
 
 /**----------------
  * Servidores
@@ -55,6 +56,7 @@ app.use(pedidoRoutes);
 app.use(productoRoutes);
 app.use(categoriaRoutes);
 app.use(inicioSesionRoutes);
+app.use(validateTokenRoutes);
 
 /**----------------------
  * Sección de socket io

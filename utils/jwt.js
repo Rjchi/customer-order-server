@@ -7,7 +7,7 @@ const createAccessToken = (user) => {
    * | Ese + 5 horas depende de lo que queramos que dure el token
    * ------------------------------------------------------------*/
   // expiration.setHours(expiration.getHours() + 5);
-  expiration.setMinutes(expiration.getMinutes() + 3);
+  expiration.setMinutes(expiration.getMinutes() + 1);
 
   return jwt.sign(_tokenPayload(user, expiration), config.JWT_SECRET_KEY);
 };
