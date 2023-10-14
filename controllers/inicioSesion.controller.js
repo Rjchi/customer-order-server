@@ -101,7 +101,7 @@ const Registro = async (req, res) => {
           .status(200)
           .json({ message: `Usuario registrar exitosamente.` });
       }
-      return res.status(400);
+      return res.sendStatus(400);
     }
     return res
       .status(400)
