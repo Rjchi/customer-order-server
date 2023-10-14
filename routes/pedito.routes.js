@@ -1,4 +1,6 @@
 const { Router } = require("express");
+
+const auth = require("../middlewares/auth.middleware.js");
 const pedido = require("../controllers/pedido.controller.js");
 
 const router = Router();
@@ -13,7 +15,7 @@ router
   .put("/api/update-order/:id", pedido.updateOrder)
   .put("/api/update-check/:id", pedido.updateCheck)
 
-  .delete("/api/delete-order/:id", pedido.deleteOrder)
+  .delete("/api/delete-order/:id", auth, pedido.deleteOrder)
   .delete("/api/delete-orders", pedido.deleteOrders);
 
 module.exports = router;
