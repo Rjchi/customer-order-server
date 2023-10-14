@@ -131,7 +131,7 @@ const updateCheck = async (req, res) => {
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({
-      message: `Error al consultar todos los pedidos detalles: ${error.message}`,
+      message: `Error al actualizar, detalles: ${error.message}`,
     });
   }
 };

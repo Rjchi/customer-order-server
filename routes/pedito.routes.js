@@ -13,7 +13,7 @@ router
   .post("/api/create-order", pedido.createOrder)
 
   .put("/api/update-order/:id", pedido.updateOrder)
-  .put("/api/update-check/:id", pedido.updateCheck)
+  .put("/api/update-check/:id", auth, pedido.updateCheck)
 
   .delete("/api/delete-order/:id", auth, pedido.deleteOrder)
   .delete("/api/delete-orders", pedido.deleteOrders);
