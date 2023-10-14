@@ -7,8 +7,8 @@ const router = Router();
 
 router
   .get("/api/get-order-by-table", pedido.getOrderbyTable)
-  .get("/api/get-orders", pedido.getOrders)
-  .get("/api/get-orders-not-check", pedido.getOrdersNotCheck)
+  .get("/api/get-orders", auth, pedido.getOrders)
+  .get("/api/get-orders-not-check", auth, pedido.getOrdersNotCheck)
 
   .post("/api/create-order", pedido.createOrder)
 
