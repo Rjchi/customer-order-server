@@ -66,13 +66,13 @@ io.on("connection", (socket) => {
 
   /**------------------------------
    * Manejar conexión con cocina
-  ------------------------------*/
+   * ------------------------------*/
   socket.on("cocinaConectada", () => {
     console.log("Cocina conectada 🍽️👨‍🍳");
 
     /**-----------------------------------------------
      * Unimos al usuario a una sala en especifico
-    -----------------------------------------------*/
+     * -----------------------------------------------*/
     socket.join("cocina");
   });
 
@@ -83,8 +83,8 @@ io.on("connection", (socket) => {
 
   socket.on("nuevoPedido", () => {
     /**--------------------------------------------------------------
-   * Emitir evento a todos los usuarios de una sala en especifico
-   --------------------------------------------------------------*/
+     * Emitir evento a todos los usuarios de una sala en especifico
+     * --------------------------------------------------------------*/
     io.to("cocina").emit("nuevoPedidoCocina");
     io.to("caja").emit("nuevoPedidoCocina");
   });
@@ -100,7 +100,7 @@ io.on("connection", (socket) => {
 
 /**------------------------------------------------------------------------------------------------
  * 0.0.0.0 es la representación de una dirección IP especial que indica "cualquier dirección"
- ------------------------------------------------------------------------------------------------*/
+ * ------------------------------------------------------------------------------------------------*/
 server.listen(config.PORT, "0.0.0.0", () =>
   console.log(`SERVER ${config.PORT}`)
 );
